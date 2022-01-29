@@ -7,10 +7,13 @@ package guessclient;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Locale;
 import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -19,9 +22,9 @@ import javax.swing.JTextField;
  */
 class GuessClient extends Thread{
       private String pogodi;
-      private JLabel label;
+      private JTextArea label;
       
-      GuessClient(JLabel label){
+      GuessClient(JTextArea label){
       this.label = label;
       }
     
@@ -65,22 +68,39 @@ public class Client extends javax.swing.JFrame {
      * Creates new form Client
      */
     JLabel label = new JLabel("");
-    JTextField textField = new JTextField(10);
+    JTextField textField = new JTextField(20);
     JButton button = new JButton("Posalji");
     
     
     public Client() {
         super("Guess the Number Client");
-        setSize(400,400);
+        setSize(800,300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         JPanel pane= new JPanel();
+        JPanel pane1 = new JPanel();
+        pane.setSize(200,200);
+        pane.setLocation(10,10);
+        JTextArea texta= new JTextArea();
+      
+        JScrollPane scroll = new JScrollPane();
         pane.add(label);
         pane.add(textField);
         pane.add(button);
+      
+        setBackground(new java.awt.Color(255, 204, 204));
+        texta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Server Result", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 24))); // NOI18N
+
+        textField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Client Input,pogodi broj", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        texta.setColumns(20);
+        texta.setRows(5);
+        scroll.setViewportView(texta);
         add(pane);
+        texta.setLocation(10,300);
+        pane1.add(texta);
         
-        GuessClient guessThread = new GuessClient(label);
+        add(pane1);
+        GuessClient guessThread = new GuessClient(texta);
         guessThread.start();
         
         button.addActionListener(action  ->{
@@ -88,7 +108,6 @@ public class Client extends javax.swing.JFrame {
         
         
         });
-        
         
     }
 

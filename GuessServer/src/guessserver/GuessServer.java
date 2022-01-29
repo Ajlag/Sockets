@@ -36,12 +36,12 @@ public class GuessServer {
                     while(true){
                     String pogodi = scanner.nextLine();
                     Random rand = new Random();
-                    int zamisli = rand.nextInt(3);
+                    int zamisli = rand.nextInt(10-1)+1;
                     
                     if(Integer.parseInt(pogodi) == zamisli)
-                        writer.println("Bravo"+zamisli);
+                        writer.println("Bravo,pogodili ste broj: "+zamisli);
                     else
-                        writer.println("Greska "+zamisli);
+                        writer.println("Greska, zamisljeni broj je: "+zamisli);
                     }
                 
                 }   catch (IOException ex) { }
